@@ -30,7 +30,7 @@ router.get('/math/calculate', function(req, res) {
   } else if (operation === 'divide') {
     total = x / y;
   };
-console.log(req.query);
+  
    res.send('Total = ' + total);
 });
 
@@ -39,7 +39,37 @@ router.use('/math/volume/:length/:width/:height', function(req, res) {
   var width = req.params.width;
   var height = req.params.height;
   var volume = length * width * height;
-  
+
   res.send(`The volume of a ${length}x${width}x${height} rectangle is ${volume}`)
-})
+});
+
+router.post('/math/area', function(req, res) {
+  var type = req.query.type;
+  var radius = req.query.radius;
+  var width = req.query.width;
+  var height = req.query.height;
+  var area = 0;
+
+  if (type === 'circle') { {
+    if(radius === undefined) {
+      res.send('Invalid')
+    }
+    area = (Math.PI)*(Math.pow(radius, 2));
+    res.send(`Area of a circle with a radius of ${radius} is ${area}`);
+    }
+  };
+
+  if (type === 'rectangle') {
+    if(height === undefined) {
+      res.send('Invalid')
+    } else if (width === undefined) {
+      res.send('Invalid')
+    } else {
+    area = width * height;
+    res.send(`Area of a ${width}x${height} rectangle is ${area}`)
+    }
+  }
+});
+
+
 module.exports = router;
