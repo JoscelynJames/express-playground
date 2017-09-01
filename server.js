@@ -3,16 +3,21 @@ const app = express();
 const jade = require('jade');
 var port = process.env.PORT || 3000;
 
-var pi = require('./routes/pi.js');
 
-app.use(pi)
+var routes = require('./routes/routes.js');
+
+app.use(routes);
 
 app.set('view engine', 'jade');
 
-app.get('/', function(req, res){
-  res.send('<h1> Go to /pi </h1> ')
-})
+app.get('/', function(reqquest, response){
+  response.send('index')
+});
 
-app.listen(port, function(req, res) {
+app.get('/math', function(reqquest, response){
+  response.send('math')
+});
+
+app.listen(port, function(reqquest, response) {
   console.log("Listening on port 3000");
-})
+});
